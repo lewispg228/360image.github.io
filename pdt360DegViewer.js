@@ -1,13 +1,13 @@
 var call = 0;
 
-function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, buttons, keys, scroll) {
-    console.log(`${call}-${id}-${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys' : ''}${scroll ? 'scroll ' : ''}`);
+function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, buttons, keys) {
+    console.log(`${call}-${id}-${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys' : ''}`);
     call++;
     loaderNone(id);
     var i = 1, j = 0, move = [],
         mainDiv = document.querySelector(`#${id}`);
     mainDiv.className = 'viewer';
-    mainDiv.innerHTML += `<img class="${id} ${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys ' : ''}${scroll ? 'scroll ' : ''}" draggable="false" src='${p}${i}.${t}'>`;
+    mainDiv.innerHTML += `<img class="${id} ${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys ' : ''}" draggable="false" src='${p}${i}.${t}'>`;
     mainDiv.innerHTML +=
            '<div class="loader"><div class="three-bounce"><div class="one"></div><div class="two"></div><div class="three"></div></div></div>'
 
@@ -63,12 +63,6 @@ function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, 
                 });
                 img.addEventListener('mouseleave', function () {
                     move = [];
-                });
-            }
-            if (scroll) {
-                img.addEventListener('wheel', function (e) {
-                    e.preventDefault();
-                    (e.wheelDelta / 120 > 0) ? nxt(this) : prev(this);
                 });
             }
             if (keys) {
