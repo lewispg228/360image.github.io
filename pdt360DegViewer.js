@@ -1,13 +1,13 @@
 var call = 0;
 
-function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, buttons, keys) {
-    console.log(`${call}-${id}-${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys' : ''}`);
+function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove) {
+    console.log(`${call}-${id}-${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}`);
     call++;
     loaderNone(id);
     var i = 1, j = 0, move = [],
         mainDiv = document.querySelector(`#${id}`);
     mainDiv.className = 'viewer';
-    mainDiv.innerHTML += `<img class="${id} ${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}${buttons ? 'buttons ' : ''}${keys ? 'keys ' : ''}" draggable="false" src='${p}${i}.${t}'>`;
+    mainDiv.innerHTML += `<img class="${id} ${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}" draggable="false" src='${p}${i}.${t}'>`;
     mainDiv.innerHTML +=
            '<div class="loader"><div class="three-bounce"><div class="one"></div><div class="two"></div><div class="three"></div></div></div>'
 
@@ -65,16 +65,6 @@ function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, 
                     move = [];
                 });
             }
-            if (keys) {
-                img.setAttribute('tabindex', '0');
-                img.onkeydown = function (e) {
-                    e.preventDefault();
-                    if (e.keyCode == 37 || e.keyCode == 38)
-                        prev(img);
-                    else if (e.keyCode == 39 || e.keyCode == 40)
-                        nxt(img);
-                };
-            }
         }
         function logic(el, e) {
             j++;
@@ -92,27 +82,6 @@ function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, 
                 else if (newMove < oldMove)
                     prev(el);
             }
-        }
-        if (buttons) {
-            var btnsDiv = document.createElement('div');
-            btnsDiv.className = 'btnDiv navDiv';
-
-            var leftNavBtn = document.createElement('button');
-            leftNavBtn.className = 'play leftNav';
-            leftNavBtn.setAttribute('title', 'left navigation');
-            btnsDiv.appendChild(leftNavBtn);
-            leftNavBtn.addEventListener('click', function () {
-                prev(img);
-            });
-
-            var rightNavBtn = document.createElement('button');
-            rightNavBtn.className = 'play rightNav';
-            rightNavBtn.setAttribute('title', 'right navigation');
-            btnsDiv.appendChild(rightNavBtn);
-            rightNavBtn.addEventListener('click', function () {
-                nxt(img);
-            });
-            img.parentNode.appendChild(btnsDiv);
         }
     } else {
         var interval, playing = false,
