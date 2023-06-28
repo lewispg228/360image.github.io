@@ -1,6 +1,6 @@
 var call = 0;
 
-function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove) {
+function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove, rotation_direction) {
     console.log(`${call}-${id}-${playable ? 'playable ' : ''}${autoPlay ? 'autoPlay ' : ''}${draggable ? 'draggable ' : ''}${mouseMove ? 'mouseMove ' : ''}`);
     call++;
     loaderNone(id);
@@ -77,10 +77,18 @@ function pdt360DegViewer(id, n, p, t, playable, autoPlay, draggable, mouseMove) 
                 newMove = move[l - 1];
             var thresh = touch ? true : !(j % 3);
             if (thresh) {
-                if (newMove > oldMove)
-                    nxt(el);
-                else if (newMove < oldMove)
-                    prev(el);
+                if (newMove > oldMove){
+                    if(rotation_direction == true)
+                        prev(el);
+                    else
+                        nxt(el);
+                }
+                else if (newMove < oldMove) {
+                    if(rotation_direction == true)
+                        nxt(el);
+                    else
+                        prev(el);
+                }
             }
         }
     } else {
